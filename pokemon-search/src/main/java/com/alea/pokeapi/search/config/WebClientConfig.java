@@ -1,4 +1,4 @@
-package com.alea.pokeapi.config;
+package com.alea.pokeapi.search.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

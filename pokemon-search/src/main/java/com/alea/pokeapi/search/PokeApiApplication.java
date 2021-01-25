@@ -1,4 +1,4 @@
-package com.alea.pokeapi;
+package com.alea.pokeapi.search;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.alea.pokeapi.repositories
+package com.alea.pokeapi.search.repositories
 
 import spock.lang.Specification
 

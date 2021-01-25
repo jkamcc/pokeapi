@@ -1,5 +1,6 @@
-package com.alea.pokeapi.config
+package com.alea.pokeapi.search.config
 
+import WebClientConfig
 import spock.lang.Specification
 
 /**

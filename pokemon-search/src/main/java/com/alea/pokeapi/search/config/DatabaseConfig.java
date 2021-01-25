@@ -1,4 +1,4 @@
-package com.alea.pokeapi.config;
+package com.alea.pokeapi.search.config;
 
 import io.r2dbc.spi.ConnectionFactory;
 import org.springframework.context.annotation.Bean;

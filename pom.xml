@@ -13,8 +13,15 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>pokeapi</name>
     <description>Technical Test - Juan Camilo Carrillo Casas</description>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>core</module>
+        <module>pokemon-search</module>
+    </modules>
 
     <properties>
+        <project.version>0.0.1-SNAPSHOT</project.version>
         <java.version>11</java.version>
         <groovy.version>2.5.13</groovy.version>
         <spock.version>2.0-M3-groovy-2.5</spock.version>
@@ -23,6 +30,16 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.alea</groupId>
+                <artifactId>core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alea</groupId>
+                <artifactId>pokemon-search</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.spockframework</groupId>
                 <artifactId>spock-bom</artifactId>
@@ -110,6 +127,22 @@
     </dependencies>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <configuration>
+                        <excludes>
+                            <exclude>
+                                <groupId>org.springframework.boot</groupId>
+                                <artifactId>spring-boot-configuration-processor</artifactId>
+                            </exclude>
+                        </excludes>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

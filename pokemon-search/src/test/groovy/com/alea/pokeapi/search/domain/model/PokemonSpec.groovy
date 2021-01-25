@@ -1,4 +1,4 @@
-package com.alea.pokeapi.domain.model
+package com.alea.pokeapi.search.domain.model
 
 import spock.lang.Specification
 
