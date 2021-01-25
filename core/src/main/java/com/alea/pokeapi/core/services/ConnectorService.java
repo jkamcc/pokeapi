@@ -5,7 +5,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriBuilder;
-import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.lang.reflect.Type;
 import java.net.URI;
@@ -25,11 +25,11 @@ public class ConnectorService {
     this.webClient = webClient;
   }
 
-  public <T> Flux<T> doCall(Function<UriBuilder, URI> uriFunction, Type type) {
+  public <T> Mono<T> doCall(Function<UriBuilder, URI> uriFunction, Type type) {
     return doCall(uriFunction, type, HttpMethod.GET, null);
   }
 
-  public <T> Flux<T> doCall(
+  public <T> Mono<T> doCall(
       Function<UriBuilder, URI> uriFunction, Type type, HttpMethod method, Object body) {
 
     WebClient.RequestBodySpec clientRequest =
@@ -38,6 +38,6 @@ public class ConnectorService {
     if (body != null) {
       clientRequest.bodyValue(body);
     }
-    return clientRequest.retrieve().bodyToFlux(ParameterizedTypeReference.forType(type));
+    return clientRequest.retrieve().bodyToMono(ParameterizedTypeReference.forType(type));
   }
 }

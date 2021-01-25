@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class PokemonBO {
   private Integer id;
@@ -15,4 +17,7 @@ public class PokemonBO {
 
   @JsonProperty("base_experience")
   private Integer baseExperience;
+
+  @JsonProperty("game_indices")
+  private List<GameIndicesBO> gameIndices;
 }
