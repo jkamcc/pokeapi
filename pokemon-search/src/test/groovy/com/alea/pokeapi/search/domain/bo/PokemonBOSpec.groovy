@@ -1,6 +1,6 @@
-package com.alea.pokeapi.search.domain.model
+package com.alea.pokeapi.search.domain.bo
 
-import com.alea.pokeapi.domain.model.Pokemon
+
 import spock.lang.Specification
 
 import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor
@@ -8,12 +8,12 @@ import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor
 /**
  * @author altran
  */
-class PokemonSpec extends Specification {
+class PokemonBOSpec extends Specification {
 
     def "Check all getters and setters and constructor"() {
 
         when: "Check all getters, setters and constructor"
-          assertPojoMethodsFor(Pokemon).quickly()
+          assertPojoMethodsFor(PokemonBO).quickly()
                   .areWellImplemented()
 
         then: "No exceptions thrown"
