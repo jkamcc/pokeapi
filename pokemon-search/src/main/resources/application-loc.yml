@@ -13,3 +13,5 @@ logging:
       netty:
         http:
           client: DEBUG
+pokemon:
+  color: red
