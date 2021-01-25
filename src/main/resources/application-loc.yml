@@ -1,0 +1,15 @@
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          r2dbc: DEBUG
+        http:
+          server:
+            reactive: TRACE
+        web:
+          reactive: TRACE
+    reactor:
+      netty:
+        http:
+          client: DEBUG
