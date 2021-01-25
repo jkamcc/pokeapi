@@ -1,0 +1,7 @@
+pokeapi:
+  url: https://pokeapi.co/api/v2
+  endpoints:
+    getPokemonRed:
+      /pokemon-color/red
+    getPokemon:
+      /pokemon/{id}
