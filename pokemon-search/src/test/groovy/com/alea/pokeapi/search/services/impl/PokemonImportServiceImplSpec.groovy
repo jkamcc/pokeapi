@@ -1,9 +1,12 @@
 package com.alea.pokeapi.search.services.impl
 
-import com.alea.pokeapi.core.services.ConnectorService
 import com.alea.pokeapi.domain.model.Pokemon
+import com.alea.pokeapi.search.domain.bo.GameIndicesBO
 import com.alea.pokeapi.search.domain.bo.PokemonBO
+import com.alea.pokeapi.search.domain.bo.VersionBO
+import com.alea.pokeapi.search.domain.mapper.PokemonMapper
 import com.alea.pokeapi.search.repositories.PokemonRepository
+import com.alea.pokeapi.search.services.PokemonApiService
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import spock.lang.Specification
@@ -14,25 +17,34 @@ import spock.lang.Specification
 class PokemonImportServiceImplSpec extends Specification {
 
     def "import pokemon successfully"() {
-        given: "connector call an retrieve successfully pokemon data"
-          def pokemonBO = new PokemonBO()
-          def connector = Mock(ConnectorService) {
-              (1.._) * doCall(*_) >> Flux.just(pokemonBO)
+        given: "pokemon from api"
+          def pokemonBO = new PokemonBO(
+                  id: 1l,
+                  height: 10,
+                  weight: 12,
+                  baseExperience: 15,
+                  gameIndices: [new GameIndicesBO(1, new VersionBO("red"))] as List)
+        and: "connector call an retrieve successfully pokemon data"
+          def connector = Mock(PokemonApiService) {
+              1 * getPokemonByVersionAndLimit(*_) >> Flux.just(pokemonBO)
           }
+        and: "mapper"
+          def mapper = Mock(PokemonMapper) {
+              1 * pokemonBOToPokemon(pokemonBO) >> Mono.just(new Pokemon())
+          }
+
         and: "repository pokemon saved at least once"
           def pokemon = new Pokemon()
           def repository = Mock(PokemonRepository) {
-              (1.._) * save(_) >> Mono.just(pokemon)
+              1 * save(_) >> Mono.just(pokemon)
           }
+
         and: "service to test"
-          def service = new PokemonImportServiceImpl(connector, repository)
+          def service = new PokemonImportServiceImpl(connector, repository, mapper)
         when: "importing pokemon data"
           service.importPokemon("red").block()
-        then: "service calls and imports correctly"
+        then: "service calls and all interactions expected are done"
           notThrown(Exception)
-          pokemon.pokemonId == 1L
-          pokemon.weight == 12
-          pokemon.height == 10
-          pokemon.baseExperience == 5
+
     }
 }
