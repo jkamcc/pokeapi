@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: pokeapi-search
+
+server:
+  port: 8081
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    preferIpAddress: true
+
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          r2dbc: DEBUG
+        http:
+          server:
+            reactive: TRACE
+        web:
+          reactive: TRACE
+    reactor:
+      netty:
+        http:
+          client: DEBUG
+pokemon:
+  limit: 151
+  color: red

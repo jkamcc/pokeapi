@@ -1,0 +1,5 @@
+pokeapi:
+  url: https://pokeapi.co/api/v2
+  endpoints:
+    getPokemon:
+      /pokemon
