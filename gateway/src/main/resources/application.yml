@@ -1,0 +1,13 @@
+server:
+  port: ${PORT}
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: top_pokemon_route
+          uri: lb://POKEAPI-SEARCH
+          predicates:
+            - Path=/pokemon/**
