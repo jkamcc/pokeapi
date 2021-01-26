@@ -27,7 +27,7 @@ class TopPokemonServiceSpec extends Specification {
           def service = new TopPokemonService(repository, mapper)
         when: "obtaining top pokemon"
           def result = service.findTopPokemon(field, limit).collectList().block()
-        then: "pokemon is obtained correctly"
+        then: "pokemon are obtained correctly"
           notThrown(Exception)
           result != null
           result.size() == 1
