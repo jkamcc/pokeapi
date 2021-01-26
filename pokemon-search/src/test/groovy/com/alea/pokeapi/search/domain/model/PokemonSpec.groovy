@@ -1,6 +1,6 @@
 package com.alea.pokeapi.search.domain.model
 
-import com.alea.pokeapi.domain.model.Pokemon
+import com.alea.pokeapi.search.domain.model.Pokemon
 import spock.lang.Specification
 
 import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor

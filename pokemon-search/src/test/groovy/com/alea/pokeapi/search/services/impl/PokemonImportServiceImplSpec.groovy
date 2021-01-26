@@ -1,6 +1,6 @@
 package com.alea.pokeapi.search.services.impl
 
-import com.alea.pokeapi.domain.model.Pokemon
+import com.alea.pokeapi.search.domain.model.Pokemon
 import com.alea.pokeapi.search.domain.bo.GameIndicesBO
 import com.alea.pokeapi.search.domain.bo.PokemonBO
 import com.alea.pokeapi.search.domain.bo.VersionBO

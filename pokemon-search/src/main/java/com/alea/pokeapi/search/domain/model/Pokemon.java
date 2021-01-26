@@ -1,4 +1,4 @@
-package com.alea.pokeapi.domain.model;
+package com.alea.pokeapi.search.domain.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,8 +12,8 @@ import org.springframework.data.relational.core.mapping.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Pokemon {
-
-  @Id private Long pokemonId;
+  @Id private Long id;
+  private Long pokemonId;
   private String name;
   private Integer height;
   private Integer weight;
