@@ -8,7 +8,6 @@ import com.alea.pokeapi.search.domain.mapper.PokemonMapper
 import com.alea.pokeapi.search.repositories.PokemonRepository
 import com.alea.pokeapi.search.services.PokemonApiService
 import reactor.core.publisher.Flux
-import reactor.core.publisher.Mono
 import spock.lang.Specification
 
 /**
@@ -18,33 +17,42 @@ class PokemonImportServiceImplSpec extends Specification {
 
     def "import pokemon successfully"() {
         given: "pokemon from api"
-          def pokemonBO = new PokemonBO(
-                  id: 1l,
-                  height: 10,
-                  weight: 12,
-                  baseExperience: 15,
-                  gameIndices: [new GameIndicesBO(1, new VersionBO("red"))] as List)
-        and: "connector call an retrieve successfully pokemon data"
+          def pokemonList = [
+                  new PokemonBO(
+                          id: 1l,
+                          height: 10,
+                          weight: 12,
+                          baseExperience: 15,
+                          gameIndices: [new GameIndicesBO(1, new VersionBO("red"))] as List),
+                  new PokemonBO(
+                          id: 2l,
+                          height: 11,
+                          weight: 12,
+                          baseExperience: 15,
+                          gameIndices: [new GameIndicesBO(1, new VersionBO("red"))] as List)
+
+          ] as List
+        and: "connector is called 1 time an retrieve successfully pokemon data"
           def connector = Mock(PokemonApiService) {
-              1 * getPokemonByVersionAndLimit(*_) >> Flux.just(pokemonBO)
+              1 * getPokemonByVersionAndLimit(*_) >> Flux.fromIterable(pokemonList)
           }
         and: "mapper"
           def mapper = Mock(PokemonMapper) {
-              1 * pokemonBOToPokemon(pokemonBO) >> Mono.just(new Pokemon())
+              2 * pokemonBOToPokemon(_) >> new Pokemon()
           }
 
-        and: "repository pokemon saved at least once"
+        and: "repository pokemon saved once with all items"
           def pokemon = new Pokemon()
           def repository = Mock(PokemonRepository) {
-              1 * save(_) >> Mono.just(pokemon)
+              1 * saveAll(_) >> Flux.just(pokemon)
           }
 
         and: "service to test"
           def service = new PokemonImportServiceImpl(connector, repository, mapper)
+
         when: "importing pokemon data"
-          service.importPokemon("red").block()
+          service.importPokemon(151, "red").block()
         then: "service calls and all interactions expected are done"
           notThrown(Exception)
-
     }
 }

@@ -7,6 +7,7 @@ import com.alea.pokeapi.search.services.PokemonImportService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /** @author altran */
@@ -23,6 +24,17 @@ public class PokemonImportServiceImpl implements PokemonImportService {
 
   @Override
   public Mono<Void> importPokemon(final int limit, final String color) {
-    return Mono.empty();
+    return pokemonApiService
+        .getPokemonByVersionAndLimit(limit, color)
+        .map(mapper::pokemonBOToPokemon)
+        .collectList()
+        .map(repository::saveAll)
+        .flatMap(Flux::collectList)
+        .map(
+            result -> {
+              log.debug("imported {} pokemon successfully", result.size());
+              return result;
+            })
+        .then();
   }
 }
