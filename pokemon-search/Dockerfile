@@ -15,8 +15,10 @@ COPY .mvn .mvn
 COPY pom.xml .
 COPY core core
 COPY pokemon-search pokemon-search
+COPY discovery-server/pom.xml discovery-server/pom.xml
+COPY gateway/pom.xml gateway/pom.xml
 
-RUN ./mvnw install -DskipTests
+RUN ./mvnw -pl '!discovery-server,!gateway' install -DskipTests
 RUN mv pokemon-search/target target
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
