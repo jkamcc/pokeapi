@@ -6,4 +6,4 @@ import org.springframework.stereotype.Repository;
 
 /** @author altran */
 @Repository
-public interface PokemonRepository extends ReactiveCrudRepository<Pokemon, Long> {}
+public interface PokemonRepository extends ReactiveCrudRepository<Pokemon, Long>, CustomPokemonRepository {}
