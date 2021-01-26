@@ -1,0 +1,3 @@
+pokemon:
+  color: ${POKEMON_COLOR}
+  limit: ${POKEMON_LIMIT}
