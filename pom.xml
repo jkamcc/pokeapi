@@ -18,6 +18,7 @@
     <modules>
         <module>core</module>
         <module>pokemon-search</module>
+        <module>discovery-server</module>
     </modules>
 
     <properties>
@@ -25,6 +26,7 @@
         <java.version>11</java.version>
         <org.mapstruct.version>1.4.1.Final</org.mapstruct.version>
         <springdoc.version>1.5.2</springdoc.version>
+        <spring-cloud.version>2020.0.0</spring-cloud.version>
         <groovy.version>2.5.13</groovy.version>
         <spock.version>2.0-M3-groovy-2.5</spock.version>
         <pojo-tester.version>0.7.6</pojo-tester.version>
@@ -43,6 +45,13 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.spockframework</groupId>
                 <artifactId>spock-bom</artifactId>
                 <version>${spock.version}</version>
@@ -53,14 +62,7 @@
     </dependencyManagement>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-r2dbc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
@@ -72,16 +74,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.r2dbc</groupId>
-            <artifactId>r2dbc-h2</artifactId>
-            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -106,11 +98,6 @@
             <artifactId>springdoc-openapi-webflux-ui</artifactId>
             <version>${springdoc.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-security</artifactId>
-            <version>${springdoc.version}</version>
-        </dependency>
 
         <!-- Tests -->
 
@@ -124,11 +111,7 @@
             <artifactId>reactor-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
+
         <dependency>
             <groupId>org.spockframework</groupId>
             <artifactId>spock-core</artifactId>
@@ -225,5 +208,13 @@
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+        </repository>
+    </repositories>
 
 </project>
