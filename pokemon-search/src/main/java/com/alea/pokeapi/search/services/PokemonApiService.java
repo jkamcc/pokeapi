@@ -49,7 +49,7 @@ public class PokemonApiService {
   public Mono<PokemonBO> getPokemon(final String name, final String color) {
     return connector
         .doCall(
-            uriBuilder -> uriBuilder.pathSegment(pokemonUrl, "/{name}").build(name),
+            uriBuilder -> uriBuilder.path(pokemonUrl).pathSegment("{name}").build(name),
             PokemonBO.class)
         .map(
             obj -> {
@@ -64,7 +64,7 @@ public class PokemonApiService {
   private Mono<PokemonBO> filterByColorVersion(
       final String colorVersion, final PokemonBO pokemonBO) {
     return Flux.fromIterable(pokemonBO.getGameIndices())
-        .filter(index -> index.getVersionBO().getName().equalsIgnoreCase(colorVersion))
+        .filter(index -> index.getVersion().getName().equalsIgnoreCase(colorVersion))
         .collectList()
         .filter(list -> !list.isEmpty())
         .map(version -> pokemonBO);
