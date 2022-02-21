@@ -1,4 +1,4 @@
-# Alea Technical Test
+# Technical Test
 
 ## Author
 #### Juan Camilo Carrillo Casas 
